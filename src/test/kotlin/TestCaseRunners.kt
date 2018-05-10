@@ -1,3 +1,4 @@
+
 import com.github.h0tk3y.compilersCourse.language.NaiveProgramInterpreter
 import com.github.h0tk3y.compilersCourse.run
 import com.github.h0tk3y.compilersCourse.stack.NaiveStackInterpreter
@@ -69,9 +70,13 @@ class X86Runner : TestCaseRunner() {
                 arrayOf("gcc", "-m32", "-c", runtimeSourceFile.absolutePath, "-o", runtimeFile.absolutePath)
             Runtime.getRuntime().exec(assembleRuntimeCmd).run {
                 waitFor()
-                inputStream.reader().forEachLine(::println)
-                errorStream.reader().forEachLine(::println)
-                exitValue()
+                val log = inputStream.reader().readText()
+                val errLog = errorStream.reader().readText()
+                if (exitValue() != 0) {
+                    throw RuntimeException("GCC assembler failed to build intrinsics: \n\n" +
+                                           "GCC output: \n$log\n\n" +
+                                           "GCC error stream: \n$errLog")
+                }
             }
         }
 
