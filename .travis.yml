@@ -2,6 +2,9 @@ language: java
 
 before_install:
  - chmod +x gradlew
+ - sudo apt-get -qq update
+ - sudo apt-get install -y gcc-multilib
+ - cd runtime && make && cd ..
 
 dist: trusty
 
