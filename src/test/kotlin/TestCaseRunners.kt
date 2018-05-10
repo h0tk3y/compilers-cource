@@ -67,7 +67,7 @@ class X86Runner : TestCaseRunner() {
                 throw RuntimeException("Could not find 'intrinsics.o' or 'intrinsics.c' in 'runtime' directory.")
             }
             val assembleRuntimeCmd =
-                arrayOf("gcc", "-m32", "-std=c99", "-c", runtimeSourceFile.absolutePath, "-o", runtimeFile.absolutePath)
+                arrayOf("gcc", "-m32", "-std=gnu99", "-c", runtimeSourceFile.absolutePath, "-o", runtimeFile.absolutePath)
             Runtime.getRuntime().exec(assembleRuntimeCmd).run {
                 waitFor()
                 val log = inputStream.reader().readText()
