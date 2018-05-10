@@ -13,7 +13,7 @@ import java.nio.file.Files
 abstract class TestCaseRunner {
     open fun runTestCase(testCase: TestCase) {
         if (!testCase.canRunOnRunner(this)) {
-            throw AssumptionViolatedException("The test case cannor run on this runner ${this@TestCaseRunner}.")
+            throw AssumptionViolatedException("The test case cannot run on this runner ${this@TestCaseRunner}.")
         }
     }
 }
@@ -67,7 +67,7 @@ class X86Runner : TestCaseRunner() {
                 throw RuntimeException("Could not find 'intrinsics.o' or 'intrinsics.c' in 'runtime' directory.")
             }
             val assembleRuntimeCmd =
-                arrayOf("gcc", "-m32", "-c", runtimeSourceFile.absolutePath, "-o", runtimeFile.absolutePath)
+                arrayOf("gcc", "-m32", "-std=c99", "-c", runtimeSourceFile.absolutePath, "-o", runtimeFile.absolutePath)
             Runtime.getRuntime().exec(assembleRuntimeCmd).run {
                 waitFor()
                 val log = inputStream.reader().readText()
