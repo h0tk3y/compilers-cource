@@ -31,3 +31,10 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile) {
 test {
     jvmArgs '-Xss4m'
 }
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}

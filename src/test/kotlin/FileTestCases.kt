@@ -1,6 +1,32 @@
 import com.github.h0tk3y.compilersCourse.language.Program
 import com.github.h0tk3y.compilersCourse.parsing.readProgram
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.io.File
+
+@RunWith(Parameterized::class)
+class RunCoreTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = coreTests
+    }
+}
+
+@RunWith(Parameterized::class)
+class RunExpressionTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = expressionTests
+    }
+}
+
+@RunWith(Parameterized::class)
+class RunDeepExpressionTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = deepExpressionTests
+    }
+}
 
 fun readTests(testRoot: File, takeFirstN: Int? = null): List<TestCaseMatchOutput> {
     val testFiles = testRoot.listFiles().sorted().filter { it.name.endsWith(".expr") }

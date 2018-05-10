@@ -1,5 +1,16 @@
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+
 val exceptionTestCases = mutableListOf<TestCase>()
 fun TestCase.registerExceptionTestCase() = also { exceptionTestCases.add(it) }
+
+@RunWith(Parameterized::class)
+class RunExceptionTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = exceptionTestCases
+    }
+}
 
 val testSimpleThrowCatch = ParsedTestCaseMatchOutput("simple throw catch", """
     fun alwaysThrows()

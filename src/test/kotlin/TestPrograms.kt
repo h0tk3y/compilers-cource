@@ -38,12 +38,6 @@ val addIntsTest = chainOf(
         Assign(v3, FunctionCall(addInts, listOf(v1, v2))), // v3 = 3x + 5y
         Write(v3)) // expected: 3 * v1 + 5 * v2
 
-val addIntsOnceTest = chainOf(
-    Assign(v1, Read), // v1 = x
-    Assign(v2, Read), // v2 = y
-    Assign(v3, FunctionCall(addInts, listOf(v1, v2))), // v3 = x + y
-    Write(v3)) // expected: v1 + v2
-
 fun programOf(statement: Statement, functions: List<FunctionDeclaration> = emptyList()): Program {
     val functionDeclaration = FunctionDeclaration("main", emptyList(), statement)
     return Program(functions + functionDeclaration, functionDeclaration)

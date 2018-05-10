@@ -1,8 +1,18 @@
 import org.junit.Assert
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
 val simpleTestCases = mutableListOf<TestCase>()
 fun TestCase.registerSimple() = also { simpleTestCases.add(it) }
 fun Iterable<TestCase>.registerSimple() = apply { forEach { simpleTestCases.add(it) } }
+
+@RunWith(Parameterized::class)
+class RunSimpleTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = simpleTestCases
+    }
+}
 
 val factorialTestCases = (2..10).map { n ->
     TestCaseCheckOutput("factorial $n", programOf(factorial), listOf(n)) { output ->

@@ -1,6 +1,17 @@
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+
 val arrayTestCases = mutableListOf<TestCase>()
 fun TestCase.registerArray() = also { arrayTestCases.add(it) }
 fun Iterable<TestCase>.registerArray() = apply { forEach { arrayTestCases.add(it) } }
+
+@RunWith(Parameterized::class)
+class RunArrayTestCases : RunAllTestCases() {
+    companion object {
+        @Parameterized.Parameters(name = "test case: {0}")
+        @JvmStatic fun testCases() = arrayTestCases
+    }
+}
 
 val arrsExample = ParsedTestCaseMatchOutput(
     "arrsExample", """
@@ -114,11 +125,6 @@ val returnArrayFromFunction = ParsedTestCaseMatchOutput(
         od
     """.trimIndent(), listOf(), listOf(3, 5, 6, 7, 8, 9, 10)
 ).registerArray()
-
-//val readMatrix = ParsedTestCaseMatchOutput("matrix", """
-//        AB := Arrmake(1, {1})
-//        write(AB[0][0])
-//    """, emptyList(), (1..9).toList()).registerArray()
 
 val arrayMemoryStressTest = object : ParsedTestCaseMatchOutput(
     "arrayMemoryStressTest", """
