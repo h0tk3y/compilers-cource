@@ -9,3 +9,5 @@ dist: trusty
 
 jdk:
   - oraclejdk8
+
+install: travis_wait ./gradlew check
